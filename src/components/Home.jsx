@@ -1,6 +1,6 @@
 import React from 'react'
 
-const LandingPage = () => {
+const Home = () => {
     return (
         <div>
             <div className='m-5 hidden md:flex'>
@@ -34,4 +34,4 @@ const LandingPage = () => {
     )
 }
 
-export default LandingPage
+export default Home

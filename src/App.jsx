@@ -5,16 +5,15 @@ import logo from '../public/icons/logo.svg'
 import './App.css'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import LandingPage from './components/LandingPage'
-
+import Home from './components/Home'
+import SignUp from './components/SignUp'
+import Login from './components/Login'
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      {/* <Navbar /> */}
-      <LandingPage/>
-      {/* <Footer /> */}
+      <Footer />
     </>
   )
 }
