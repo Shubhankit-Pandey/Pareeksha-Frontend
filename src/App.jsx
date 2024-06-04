@@ -8,12 +8,16 @@ import Footer from './components/Footer'
 import Home from './components/Home'
 import SignUp from './components/SignUp'
 import Login from './components/Login'
+import LandingPage from './components/LandingPage'
+import Otppage from './components/Otppage'
+import ExamPage from './components/ExamPage'
+
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <Footer />
+      <ExamPage />
     </>
   )
 }
