@@ -1,6 +1,10 @@
 import React from 'react'
+import {useNavigate } from 'react-router-dom'
 
 const Home = () => {
+
+    const navigate = useNavigate();
+
     return (
         <div>
             <div className='m-5 hidden md:flex'>
@@ -16,10 +20,10 @@ const Home = () => {
                     <div className='font-sans text-[1.25rem]'>
                     Attend and Take exams whenever wherever 
                     </div>
-                    <button className='border border-[#00684A] bg-[#00684A] text-white rounded-[20px] p-2'>
+                    <button onClick={()=>navigate('/signup')} className='border border-[#00684A] bg-[#00684A] hover:bg-[#2c7762] text-white rounded-[20px] p-2'>
                         Get Started
                     </button>
-                    <button className='border border-[#00684A] bg-[#00684A] text-white rounded-[20px] p-2'>
+                    <button onClick={()=>navigate('/login')} className='border border-[#00684A] bg-[#00684A] hover:bg-[#2c7762] text-white rounded-[20px] p-2'>
                         Login
                     </button>
                 </div>

@@ -1,8 +1,27 @@
 import React from 'react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Navbar from './Navbar'
 import Footer from './Footer'
 
 const Login = () => {
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
+    const handleLogin = () => {
+        const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+        const user = storedUsers.find(user => user.email === email && user.password === password);
+
+        if (user) {
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            navigate('/landing');
+        } else {
+            alert('Invalid email or password');
+        }
+    };
+
     return (
         <div>
             <Navbar />
@@ -17,26 +36,28 @@ const Login = () => {
                 </div>
                 <div>
                     <div>
-                        Enter username:
+                        Enter email:
                     </div>
-                    <input type="text" placeholder='Enter your username' className='border shadow-md w-[30vw]  rounded-[20px] p-2 my-3' />
+                    {/* email */}
+                    <input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder='Enter your email' className='border shadow-md w-[30vw]  rounded-[20px] p-2 my-3' />
                 </div>
                 <div>
                     <div>
                         Enter password:
                     </div>
-                    <input type="text" placeholder='Enter your password' className='border shadow-md w-[30vw]  rounded-[20px] p-2 my-3' />
+                    {/* password */}
+                    <input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder='Enter your password' className='border shadow-md w-[30vw]  rounded-[20px] p-2 my-3' />
                 </div>
                 <div className='text-center'>
-                    <button className='w-[30vw] border border-[#00684A] bg-[#00684A] text-white rounded-[20px] p-2'>
+                    <button onClick={handleLogin} className='w-[30vw] border border-[#00684A] bg-[#00684A] text-white rounded-[20px] p-2'>
                         Login
                     </button>
                     <div className='my-2'>
-                        New Member ? <a className='text-[#00684A]' href="/">Sign Up</a>
+                        New Member ? <a className='text-[#00684A]' href="/signup">Sign Up</a>
                     </div>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </div>
     )
 }

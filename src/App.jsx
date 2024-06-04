@@ -1,23 +1,42 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import logo from '../public/icons/logo.svg'
-import './App.css'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './components/Home'
 import SignUp from './components/SignUp'
 import Login from './components/Login'
 import LandingPage from './components/LandingPage'
-import Otppage from './components/Otppage'
+import OtpPage from './components/OtpPage'
 import ExamPage from './components/ExamPage'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Home />
+    },
+    {
+      path: '/login',
+      element: <Login />
+    },
+    {
+      path: 'signup',
+      element: <SignUp />
+    },
+    {
+      path: 'landing',
+      element: <LandingPage />
+    },
+    {
+      path: 'conduct',
+      element: <ExamPage />
+    },
+  ])
 
   return (
     <>
-      <ExamPage />
+      <RouterProvider router={router} />
     </>
   )
 }

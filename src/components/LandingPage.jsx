@@ -1,8 +1,13 @@
 import React from 'react'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const LandingPage = () => {
+
+    const navigate = useNavigate()
+
     return (
         <div className='font-serif'>
             <Navbar />
@@ -11,7 +16,7 @@ const LandingPage = () => {
                     <div className='text-[25px] text-center'>
                         Become the examiner
                     </div>
-                    <button className='w-[30vw] border border-[#00684A] bg-[#00684A] text-white rounded-[20px] p-2'>
+                    <button onClick={()=>navigate('/conduct')} className='w-[30vw] border border-[#00684A] bg-[#00684A] text-white rounded-[20px] p-2'>
                         <div className='flex justify-center items-center gap-3'>
                             <img src="icons/Conduct.svg" alt="" />
                             <div>
