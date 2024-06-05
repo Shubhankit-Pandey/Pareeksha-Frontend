@@ -41,7 +41,7 @@ const SignUp = () => {
                         Enter email:
                     </div>
                     {/* email */}
-                    <input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder='Enter your username' className='border shadow-md w-[30vw]  rounded-[20px] p-2 my-3' />
+                    <input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder='Enter your email' className='border shadow-md w-[30vw]  rounded-[20px] p-2 my-3' />
                 </div>
                 <div>
                     <div>

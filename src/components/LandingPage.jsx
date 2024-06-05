@@ -29,7 +29,7 @@ const LandingPage = () => {
                     <div className='text-[25px] text-center'>
                         Become the examinee
                     </div>
-                    <button className='w-[30vw] border border-[#00684A] bg-[#00684A] text-white rounded-[20px] p-2'>
+                    <button onClick={()=>{navigate('/otppage')}} className='w-[30vw] border border-[#00684A] bg-[#00684A] text-white rounded-[20px] p-2'>
                         <div className='flex justify-center items-center gap-3'>
                             <img src="icons/Attend.svg" alt="" />
                             <div>
