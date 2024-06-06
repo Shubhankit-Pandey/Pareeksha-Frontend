@@ -10,15 +10,27 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    const handleLogin = () => {
-        const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
-        const user = storedUsers.find(user => user.email === email && user.password === password);
+    const handleLogin = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
 
-        if (user) {
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            navigate('/landing');
-        } else {
-            alert('Invalid email or password');
+            const data = await response.json();
+
+            if (data.success) {
+                localStorage.setItem('currentUser', JSON.stringify(data.user));
+                navigate('/landing');
+            } else {
+                alert('Invalid email or password');
+            }
+        } catch (error) {
+            console.error('Error logging in:', error);
+            alert('An error occurred while logging in. Please try again.');
         }
     };
 

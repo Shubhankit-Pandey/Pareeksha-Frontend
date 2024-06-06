@@ -1,17 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
 const Submissions = () => {
     const { otp } = useParams();
-    const submissions = JSON.parse(localStorage.getItem('submissions')) || [];
+    const [submissions, setSubmissions] = useState([]);
 
-    const handlePdfClick = (url) => {
-        window.open(url, '_blank');
-    };
-
-    const filteredSubmissions = submissions.filter(submission => submission.otp === otp);
+    useEffect(() => {
+        const fetchSubmissions = async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/api/submissions/${otp}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setSubmissions(data.submissions);
+                } else {
+                    console.error('Failed to fetch submissions');
+                }
+            } catch (error) {
+                console.error('Error fetching submissions:', error);
+            }
+        };
+        fetchSubmissions();
+    }, [otp]);
 
     return (
         <div className="font-serif">
@@ -21,15 +32,10 @@ const Submissions = () => {
                     <h1 className="text-2xl font-bold mb-1">View Submissions for OTP: {otp}</h1>
                 </header>
                 <ul className="list-disc text-left">
-                    {filteredSubmissions.length > 0 ? (
-                        filteredSubmissions.map((submission, index) => (
+                    {submissions.length > 0 ? (
+                        submissions.map((submission, index) => (
                             <li key={index}>
-                                <button
-                                    onClick={() => handlePdfClick(submission.pdfName)}
-                                    className="text-blue-500"
-                                >
-                                    {submission.pdfName}
-                                </button>
+                                {submission.pdfName}
                             </li>
                         ))
                     ) : (

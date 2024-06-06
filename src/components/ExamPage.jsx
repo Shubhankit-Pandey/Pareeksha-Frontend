@@ -16,20 +16,32 @@ const ExamPage = () => {
     const handleAddQuestion = () => {
         if (currentQuestion.trim()) {
             setQuestions([...questions, currentQuestion]);
-            console.log(questions.length);
             setCurrentQuestion('')
         }
     }
 
-    const handleSubmit = () => {
-        const newExam = { otp, questions };
-        const exams = JSON.parse(localStorage.getItem('exams')) || [];
-        exams.push(newExam);
-        localStorage.setItem('exams', JSON.stringify(exams));
-        alert(`Exam created with OTP: ${otp}`);
-    }
+    const handleSubmit = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/api/exams', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ otp, questions }),
+            });
 
+            const data = await response.json();
 
+            if (data.success) {
+                alert(`Exam created with OTP: ${otp}`);
+            } else {
+                alert('Error creating exam');
+            }
+        } catch (error) {
+            console.error('Error submitting exam:', error);
+            alert('An error occurred while submitting the exam. Please try again.');
+        }
+    };
 
     return (
         <div className='text-serif'>

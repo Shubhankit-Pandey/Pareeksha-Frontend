@@ -10,17 +10,27 @@ const SignUp = () => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate()
 
-    const handleSignup = () => {
-        const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
-        const userExists = storedUsers.some(user => user.email === email);
+    const handleSignup = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/api/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
 
-        if (userExists) {
-            alert('User already exists');
-        } else {
-            storedUsers.push({ email, password });
-            localStorage.setItem('users', JSON.stringify(storedUsers));
-            localStorage.setItem('currentUser', JSON.stringify({ email, password }));
-            navigate('/landing');
+            const data = await response.json();
+
+            if (data.success) {
+                localStorage.setItem('currentUser', JSON.stringify({ email, password }));
+                navigate('/landing');
+            } else {
+                alert(data.message || 'An error occurred during signup.');
+            }
+        } catch (error) {
+            console.error('Error signing up:', error);
+            alert('An error occurred while signing up. Please try again.');
         }
     };
 
